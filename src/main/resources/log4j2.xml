@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <!-- Appender, Layout 설정 -->
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout/>
+        </Console>
+        <File name="file" fileName="./logs/file/sample.log" append="false">
+            <PatternLayout pattern="%d %5p [%c] %m%n"/>
+        </File>
+    </Appenders>
+
+    <!-- Logger 설정 -->
+    <Loggers>
+        <!--여기서 name은 패키지 이름, com.zaxxer은 히카리풀에 대한 패키지-->
+        <Logger name="com.zaxxer" level="DEBUG" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.zerock" level="TRACE" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>

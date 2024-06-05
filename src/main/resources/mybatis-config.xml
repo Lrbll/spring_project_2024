@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--    mybatis-config.xml 의 존재 이유, 나중에 typeAliases 를 사용할 수 있으므로 미리 생성-->
+    <typeAliases>
+        <package name="org.zerock.study00.domain"/>
+    </typeAliases>
+</configuration>
