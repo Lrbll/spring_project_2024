@@ -7,6 +7,7 @@
 
     <!--해당 패키지 안에있는 component가 bean으로 등록됨-->
     <context:component-scan base-package="org.zerock.study00.sample"/>
+    <context:component-scan base-package="org.zerock.study00.service"/>
 
     <bean name="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>

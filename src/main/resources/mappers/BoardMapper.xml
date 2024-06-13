@@ -6,4 +6,24 @@
     <select id="getList" resultType="BoardVO">
         SELECT * FROM tbl_board WHERE bno > 0 ORDER BY bno DESC
     </select>
+
+    <insert id="insert">
+        <selectKey order="AFTER" keyProperty="bno" resultType="long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tbl_board (title, content, writer)
+        values (#{title}, #{content}, #{writer})
+    </insert>
+
+    <select id="select" resultType="BoardVO">
+        SELECT * FROM tbl_board WHERE bno = #{nn} <!--파라미터가 하나일 때는 아무 이름으로 작성해도 괜찮다-->
+    </select>
+
+    <update id="update">
+        UPDATE tbl_board
+        SET title = #{title},
+            content = #{content},
+            updateDate = now()
+        WHERE bno = #{bno}
+    </update>
 </mapper>

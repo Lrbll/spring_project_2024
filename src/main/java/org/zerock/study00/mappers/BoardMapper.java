@@ -8,4 +8,10 @@ public interface BoardMapper {
 
     java.util.List<BoardVO> getList();
 //    List<BoardVO> getList();
+
+    int insert(BoardVO board);
+
+    BoardVO select(Long bno);
+
+    int update(BoardVO board);
 }
