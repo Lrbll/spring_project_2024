@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.study00.domain.BoardVO;
 import org.zerock.study00.service.BoardService;
 
@@ -40,6 +41,12 @@ public class BoardController {
             @PathVariable(name = "bno") Long bno, Model model) {
 
         log.info("job : " + job);
+        log.info("bno : " + bno);
+
+        if ( !(job.equals("read") || job.equals("modify")) ){
+
+            throw new RuntimeException("Bad Request job");
+        }
 
         BoardVO boardVO = boardService.get(bno);
 
@@ -65,8 +72,19 @@ public class BoardController {
 //    }
 
     @GetMapping("/register")
-    public void register(Model model) {
+    public void register() {
+        // 아무것도 작성하지 않아도 자동으로 경로 반환?
+    }
 
-        log.info("register...................");
+    @PostMapping("/register")
+    public String register(BoardVO boardVO, RedirectAttributes rttr) {
+
+        Long bno = boardService.register(boardVO);
+
+        log.info("boardVO : " + boardVO);
+
+        rttr.addFlashAttribute("result", bno);
+
+        return "redirect:/board/list";
     }
 }
