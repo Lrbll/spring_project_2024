@@ -3,9 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.study00.mappers.BoardMapper">
+
     <select id="getList" resultType="BoardVO">
         SELECT * FROM tbl_board WHERE bno > 0 ORDER BY bno DESC
     </select>
+
+    <select id="getPage" resultType="BoardVO">
+        SELECT *
+        FROM tbl_board
+        ORDER BY bno DESC
+        LIMIT #{skip}, #{amount}
+    </select>
+    <!-- skip이 변수로 명명되어있지는 않지만 -->
+    <!-- skip에 대한 getter 메소드가 작성되어있어 파라미터로 사용할 수 있다 -->
 
     <insert id="insert">
         <selectKey order="AFTER" keyProperty="bno" resultType="long">
@@ -16,8 +26,10 @@
     </insert>
 
     <select id="select" resultType="BoardVO">
-        SELECT * FROM tbl_board WHERE bno = #{nn} <!--파라미터가 하나일 때는 아무 이름으로 작성해도 괜찮다-->
+        SELECT * FROM tbl_board WHERE bno = #{nn}
     </select>
+    <!-- #{nn} 파라미터가 하나일 때는 아무 이름으로 작성해도 괜찮다 -->
+    <!-- 평상시에는 변수 이름을 맞춰주어야함 -->
 
     <update id="update">
         UPDATE tbl_board

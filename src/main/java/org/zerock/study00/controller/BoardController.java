@@ -54,22 +54,22 @@ public class BoardController {
 
         model.addAttribute("vo", boardVO);
 
-        return "board/" + job;
+        return "/board/" + job;
     }
 
+    @PostMapping("/modify/{bno}")
+    public String modify(
+            @PathVariable(name = "bno") Long bno,
+            BoardVO boardVO) {
 
-//    @GetMapping("/modify/{bno}")
-//    public String modify(
-//            @PathVariable(name = "bno") Long bno, Model model){
-//
-//        BoardVO boardVO = boardService.get(bno);
-//
-//        log.info(boardVO);
-//
-//        model.addAttribute("vo", boardVO);
-//
-//        return "board/modify";
-//    }
+        boardVO.setBno(bno);
+
+        log.info(boardVO);
+
+        boardService.modify(boardVO);
+
+        return "redirect:/board/read/" + bno;
+    }
 
     @GetMapping("/register")
     public void register() {
@@ -84,6 +84,23 @@ public class BoardController {
         log.info("boardVO : " + boardVO);
 
         rttr.addFlashAttribute("result", bno);
+
+        return "redirect:/board/list";
+    }
+
+    @PostMapping("/remove/{bno}")
+    public String remove(
+            @PathVariable(name = "bno") Long bno,
+            RedirectAttributes rttr) {
+
+        BoardVO boardVO = new BoardVO();
+        boardVO.setBno(bno);
+        boardVO.setTitle("해당 글은 삭제되었습니다.");
+        boardVO.setContent("해당 글은 삭제되었습니다.");
+
+        boardService.modify(boardVO);
+        rttr.addFlashAttribute("result", boardVO.getBno());
+//        rttr.addFlashAttribute("result", bno); // 이건 안대나?
 
         return "redirect:/board/list";
     }

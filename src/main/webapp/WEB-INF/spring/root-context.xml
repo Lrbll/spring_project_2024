@@ -30,4 +30,5 @@
 
     <mybatis-spring:scan base-package="org.zerock.study00.mappers"/>
 
+
 </beans>
